@@ -1,0 +1,644 @@
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "Skidz's FE Hub";
+	Text = "executed OK FUCK";
+	Icon = "rbxthumb://type=Asset&id=7969699183&w=150&h=150"})
+Duration = 16;
+wait(0.1)
+HumanDied = false
+local CountSCIFIMOVIELOL = 1
+function SCIFIMOVIELOL(Part0,Part1,Position,Angle)
+	local AlignPos = Instance.new('AlignPosition', Part1); AlignPos.Name = "AliP_"..CountSCIFIMOVIELOL
+	AlignPos.ApplyAtCenterOfMass = true;
+	AlignPos.MaxForce = 5772000--67752;
+	AlignPos.MaxVelocity = math.huge/9e110;
+	AlignPos.ReactionForceEnabled = false;
+	AlignPos.Responsiveness = 200;
+	AlignPos.RigidityEnabled = false;
+	local AlignOri = Instance.new('AlignOrientation', Part1); AlignOri.Name = "AliO_"..CountSCIFIMOVIELOL
+	AlignOri.MaxAngularVelocity = math.huge/9e110;
+	AlignOri.MaxTorque = 5772000
+	AlignOri.PrimaryAxisOnly = false;
+	AlignOri.ReactionTorqueEnabled = false;
+	AlignOri.Responsiveness = 200;
+	AlignOri.RigidityEnabled = false;
+	local AttachmentA=Instance.new('Attachment',Part1); AttachmentA.Name = "Ath_"..CountSCIFIMOVIELOL
+	local AttachmentB=Instance.new('Attachment',Part0); AttachmentB.Name = "Ath_"..CountSCIFIMOVIELOL
+	AttachmentA.Orientation = Angle or Vector3.new(0,0,0)
+	AttachmentA.Position = Position or Vector3.new(0,0,0)
+	AlignPos.Attachment1 = AttachmentA;
+	AlignPos.Attachment0 = AttachmentB;
+	AlignOri.Attachment1 = AttachmentA;
+	AlignOri.Attachment0 = AttachmentB;
+	CountSCIFIMOVIELOL = CountSCIFIMOVIELOL + 1
+	return {AlignPos,AlignOri,AttachmentA,AttachmentB}
+end
+
+if _G.netted ~= true then
+	_G.netted = true
+	coroutine.wrap(function()
+		settings().Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.Disabled
+		settings().Physics.AllowSleep = false
+		game:GetService("RunService").RenderStepped:Connect(function()
+			game:FindFirstChildOfClass("Players").LocalPlayer.MaximumSimulationRadius=math.pow(math.huge,math.huge)
+			sethiddenproperty(game:FindFirstChildOfClass("Players").LocalPlayer,"SimulationRadius",math.huge*math.huge)
+		end)
+	end)()
+end
+
+game:FindFirstChildOfClass("Players").LocalPlayer["Character"].Archivable = true
+local hatnameclone = {}
+for _,v in next, game:FindFirstChildOfClass("Players").LocalPlayer["Character"]:GetChildren() do
+	if v:IsA("Accessory") then
+		if hatnameclone[v.Name] then
+			if hatnameclone[v.Name] == "s" then
+				hatnameclone[v.Name] = {}
+			end
+			table.insert(hatnameclone[v.Name],v)
+		else
+			hatnameclone[v.Name] = "s"
+		end
+	end
+end
+for _,v in pairs(hatnameclone) do
+	if type(v) == "table" then
+		local num = 1
+		for _,w in pairs(v) do
+			w.Name = w.Name..num
+			num = num + 1
+		end
+	end
+end
+hatnameclone = nil
+
+local DeadChar = game:FindFirstChildOfClass("Players").LocalPlayer.Character
+
+local fldr = Instance.new("Folder",game:FindFirstChildOfClass("Players").LocalPlayer["Character"])
+fldr.Name = "DMYF"
+local CloneChar = DeadChar:Clone()
+local ANIMATIONHERE
+if CloneChar:FindFirstChild("Animate") then
+	ANIMATIONHERE = CloneChar:FindFirstChild("Animate"):Clone()
+	CloneChar:FindFirstChild("Animate"):Destroy()
+end
+if CloneChar:FindFirstChildOfClass("Folder") then CloneChar:FindFirstChildOfClass("Folder"):Destroy() end
+if CloneChar.Torso:FindFirstChild("Neck") then
+	local Clonessss = CloneChar.Torso:FindFirstChild("Neck"):Clone()
+	Clonessss.Part0 = nil
+	Clonessss.Part1 = DeadChar.Head
+	Clonessss.Parent = DeadChar.Torso
+end
+CloneChar.Parent = fldr
+CloneChar.HumanoidRootPart.CFrame = DeadChar.HumanoidRootPart.CFrame
+CloneChar.Humanoid.BreakJointsOnDeath = false
+CloneChar.Name = "non"
+CloneChar.Humanoid.DisplayDistanceType = "None"
+
+for _,v in next, DeadChar:GetChildren() do
+	if v:IsA("Accessory") then
+		local topacc = false
+		if v.Handle:FindFirstChildOfClass("Weld") then v.Handle:FindFirstChildOfClass("Weld"):Destroy() end
+		v.Handle.Massless = true
+		v.Handle.CanCollide = false
+		if v.Handle:FindFirstChildOfClass("Attachment") then
+			local ath__ = v.Handle:FindFirstChildOfClass("Attachment")
+			if ath__.Name == "HatAttachment" or ath__.Name == "HairAttachment" or ath__.Name == "FaceFrontAttachment" or ath__.Name == "FaceCenterAttachment" then
+				topacc = ath__.Name
+			end
+		end
+        local bv = Instance.new("BodyVelocity",v.Handle)
+		bv.Velocity = Vector3.new(0,0,0)
+		coroutine.wrap(function()
+			if topacc then
+				local allthings = SCIFIMOVIELOL(v.Handle,DeadChar.Torso,Vector3.new(0,1.5,0)+ (DeadChar.Head[topacc].Position + (v.Handle[topacc].Position*-1)),Vector3.new(0,0,0))
+				local normaltop = allthings[1].Attachment1
+				local alipos = allthings[1]
+				local alirot = allthings[2]
+				local p0 = v.Handle
+				local p1 = DeadChar.Head
+				alipos.Parent = CloneChar:FindFirstChild(v.Name).Handle
+				alirot.Parent = CloneChar:FindFirstChild(v.Name).Handle
+				while true do
+					game:GetService("RunService").RenderStepped:wait()
+					if HumanDied then break end
+					coroutine.wrap(function()
+						if alipos.Attachment1 == normaltop then
+							p0.CFrame = p0.CFrame:lerp((((DeadChar.Torso.CFrame * CFrame.new(0,1.5,0)) * p1[topacc].CFrame) * p0[topacc].CFrame:inverse()),1)
+						else
+							v.Handle.CFrame = v.Handle.CFrame:lerp(alipos.Attachment1.Parent.CFrame * CFrame.new(alipos.Attachment1.Position) * CFrame.Angles(math.rad(alipos.Attachment1.Rotation.X),math.rad(alipos.Attachment1.Rotation.Y),math.rad(alipos.Attachment1.Rotation.Z)),1)
+						end
+					end)()
+				end
+			else
+				SCIFIMOVIELOL(v.Handle,CloneChar[v.Name].Handle,Vector3.new(0,0,0),Vector3.new(0,0,0))
+			end
+		end)()
+    end
+end
+
+local a = DeadChar.Torso
+local b = DeadChar.HumanoidRootPart
+local c = DeadChar.Humanoid
+a.Parent = game:FindFirstChildOfClass("Workspace")
+c.Parent = game:FindFirstChildOfClass("Workspace")
+local told = a:Clone()
+local told1 = c:Clone()
+b["RootJoint"].Part0 = told
+b["RootJoint"].Part1 = DeadChar.Head
+a.Name = "torso"
+a.Neck:Destroy()
+c.Name = "Mizt Hub Best"
+told.Parent = DeadChar
+told1.Parent = DeadChar
+DeadChar.PrimaryPart = told
+told1.Health = 0
+b:Destroy()
+a.Parent = DeadChar
+c.Parent = DeadChar
+told:Destroy()
+told1:Destroy()
+a.Name = "Torso"
+
+if CloneChar.Head:FindFirstChildOfClass("Decal") then CloneChar.Head:FindFirstChildOfClass("Decal").Transparency = 1 end
+if DeadChar:FindFirstChild("Animate") then DeadChar:FindFirstChild("Animate"):Destroy() end
+
+local Collider
+function UnCollide()
+    if HumanDied then Collider:Disconnect(); return end
+    --[[for _,Parts in next, CloneChar:GetChildren() do
+        if Parts:IsA("BasePart") then
+            Parts.CanCollide = false 
+        end 
+    end]]
+    for _,Parts in next, DeadChar:GetChildren() do
+        if Parts:IsA("BasePart") then
+        Parts.CanCollide = false
+        end 
+    end 
+end
+Collider = game:GetService("RunService").Stepped:Connect(UnCollide)
+
+local resetBindable = Instance.new("BindableEvent")
+resetBindable.Event:connect(function()
+    game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
+	resetBindable:Destroy()
+	HumanDied = true
+    pcall(function()
+		game:FindFirstChildOfClass("Players").LocalPlayer.Character = DeadChar
+		DeadChar.Head:Destroy()
+		DeadChar:FindFirstChildOfClass("Humanoid"):Destroy()
+		game:FindFirstChildOfClass("Players").LocalPlayer.Character = CloneChar
+		if DeadChar:FindFirstChildOfClass("Folder") then DeadChar:FindFirstChildOfClass("Folder"):Destroy() end
+	end)
+end)
+game:GetService("StarterGui"):SetCore("ResetButtonCallback", resetBindable)
+
+coroutine.wrap(function()
+    while true do
+        game:GetService("RunService").RenderStepped:wait()
+        if not CloneChar or not CloneChar:FindFirstChild("Head") or not CloneChar:FindFirstChildOfClass("Humanoid") or CloneChar:FindFirstChildOfClass("Humanoid").Health <= 0 and not DeadChar or not DeadChar:FindFirstChild("Head") or not DeadChar:FindFirstChildOfClass("Humanoid") or DeadChar:FindFirstChildOfClass("Humanoid").Health <= 0 then 
+            HumanDied = true
+            pcall(function()
+				game:FindFirstChildOfClass("Players").LocalPlayer.Character = DeadChar
+				DeadChar.Head:Destroy()
+				DeadChar:FindFirstChildOfClass("Humanoid"):Destroy()
+				game:FindFirstChildOfClass("Players").LocalPlayer.Character = CloneChar
+				if DeadChar:FindFirstChildOfClass("Folder") then DeadChar:FindFirstChildOfClass("Folder"):Destroy() end
+			end)
+            if resetBindable then
+                game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
+                resetBindable:Destroy()
+            end
+            break
+        end		
+    end
+end)()
+
+
+SCIFIMOVIELOL(DeadChar["Head"],CloneChar["Head"])
+SCIFIMOVIELOL(DeadChar["Torso"],CloneChar["Torso"])
+SCIFIMOVIELOL(DeadChar["Left Arm"],CloneChar["Left Arm"])
+SCIFIMOVIELOL(DeadChar["Right Arm"],CloneChar["Right Arm"])
+SCIFIMOVIELOL(DeadChar["Left Leg"],CloneChar["Left Leg"])
+SCIFIMOVIELOL(DeadChar["Right Leg"],CloneChar["Right Leg"])
+
+for _,v in pairs(DeadChar:GetChildren()) do
+	if v:IsA("BasePart") and v.Name ~= "Head" then
+		--[[local bv = Instance.new("BodyVelocity",v)
+		bv.Velocity = Vector3.new(0,0,0)
+		coroutine.wrap(function()
+			while true do
+				game:GetService("RunService").RenderStepped:wait()
+				if HumanDied then break end
+				v.CFrame = CloneChar[v.Name].CFrame
+			end
+		end)()]]
+	elseif v:IsA("BasePart") and v.Name == "Head" then
+		local bv = Instance.new("BodyVelocity",v)
+		bv.Velocity = Vector3.new(0,0,0)
+		coroutine.wrap(function()
+			while true do
+				game:GetService("RunService").RenderStepped:wait()
+				if HumanDied then break end
+				v.CFrame = DeadChar.Torso.CFrame * CFrame.new(0,1.5,0)
+			end
+		end)()
+	end
+end
+
+for _,BodyParts in next, CloneChar:GetDescendants() do
+if BodyParts:IsA("BasePart") or BodyParts:IsA("Part") then
+BodyParts.Transparency = 1 end end
+game:GetService("RunService").RenderStepped:wait()
+game:FindFirstChildOfClass("Players").LocalPlayer.Character = CloneChar
+game:FindFirstChildOfClass("Workspace"):FindFirstChildOfClass("Camera").CameraSubject = CloneChar.Humanoid
+
+for _,v in next, DeadChar:GetChildren() do
+	if v:IsA("Accessory") then
+		if v.Handle:FindFirstChildOfClass("Weld") then v.Handle:FindFirstChildOfClass("Weld"):Destroy() end
+	end
+end
+
+if ANIMATIONHERE then ANIMATIONHERE.Parent = CloneChar end
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local maus = plr:GetMouse()
+local PGui = plr.PlayerGui
+local lleg = chr["Left Leg"]
+local rleg = chr["Right Leg"]
+local larm = chr["Left Arm"]
+local rarm = chr["Right Arm"]
+local hed = chr.Head
+local rutprt = chr.HumanoidRootPart
+local torso = chr.Torso
+local otheranims = false
+local armmovement = false
+chr.Animate.Disabled = true
+local RunSpeed = 36
+local WlkSpeed = 30
+local runnin = false
+local tik = 0
+local rollvalue = 0
+local swimming = false
+local fldb = {
+  w = false,
+  a = false,
+  s = false,
+  d = false
+}
+local jumpval = 0
+local idlerollv = 0
+local BallColor = torso.BrickColor
+local BallTransparency = 0
+local BallReflectance = 0
+local BallMaterial = "ForceField"
+coroutine.wrap(function()
+  for i, x in pairs(hed:GetChildren()) do
+    if x:IsA("Sound") then
+      x:Destroy()
+    end
+  end
+end)()
+function Lerp(a, b, i)
+  local com1 = {
+    a.X,
+    a.Y,
+    a.Z,
+    a:toEulerAnglesXYZ()
+  }
+  local com2 = {
+    b.X,
+    b.Y,
+    b.Z,
+    b:toEulerAnglesXYZ()
+  }
+  local calx = com1[1] + (com2[1] - com1[1]) * i
+  local caly = com1[2] + (com2[2] - com1[2]) * i
+  local calz = com1[3] + (com2[3] - com1[3]) * i
+  local cala = com1[4] + (com2[4] - com1[4]) * i
+  local calb = com1[5] + (com2[5] - com1[5]) * i
+  local calc = com1[6] + (com2[6] - com1[6]) * i
+  return CFrame.new(calx, caly, calz) * CFrame.Angles(cala, calb, calc)
+end
+function TwnSingleNumber(s, f, m)
+  local wot = s + (f - s) * m
+  return wot
+end
+function TwnVector3(q, w, e)
+  local begin = {
+    q.x,
+    q.y,
+    q.z
+  }
+  local ending = {
+    w.x,
+    w.y,
+    w.z
+  }
+  local bgx = begin[1] + (ending[1] - begin[1]) * e
+  local bgy = begin[2] + (ending[2] - begin[2]) * e
+  local bgz = begin[3] + (ending[3] - begin[3]) * e
+  return Vector3.new(bgx, bgy, bgz)
+end
+function newWeld(wld, wp0, wp1, wc0x, wc0y, wc0z)
+  wld = Instance.new("Weld", wp1)
+  wld.Part0 = wp0
+  wld.Part1 = wp1
+  wld.C0 = CFrame.new(wc0x, wc0y, wc0z)
+end
+function Avg(a, b)
+  return CFrame.new((a.X + b.X) / 2, (a.Y + b.Y) / 2, (a.Z + b.Z) / 2)
+end
+local jump = Instance.new("Sound", rutprt)
+jump.Volume = 0.2
+jump.Pitch = 1
+jump.SoundId = "http://www.roblox.com/asset?id=170588191"
+newWeld(law, torso, larm, -1.5, 0.5, 0)
+newWeld(raw, torso, rarm, 1.5, 0.5, 0)
+newWeld(llw, torso, lleg, -0.5, -2, 0)
+newWeld(rlw, torso, rleg, 0.5, -2, 0)
+newWeld(hw, torso, hed, 0, 1.5, 0)
+local rutwald = Instance.new("Weld", rutprt)
+rutwald.Part0 = rutprt
+rutwald.Part1 = torso
+larm.Weld.C1 = CFrame.new(0, 0.5, 0)
+rarm.Weld.C1 = CFrame.new(0, 0.5, 0)
+rleg.Weld.C1 = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), 0, 0)
+lleg.Weld.C1 = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), 0, 0)
+local anim = "Idling"
+local lastanim = "Idling"
+local val = 0
+local syne = 0
+local num = 0
+local runtime = 0
+maus.KeyDown:connect(function(kei)
+  if string.byte(kei) == 48 and not otheranims and not sitting and not disabled then
+    runnin = true
+  end
+  if kei == "w" then
+    fldb.w = true
+  end
+  if kei == "a" then
+    fldb.a = true
+  end
+  if kei == "s" then
+    fldb.s = true
+  end
+  if kei == "d" then
+    fldb.d = true
+  end
+end)
+maus.KeyUp:connect(function(kei)
+  if string.byte(kei) == 48 and not otheranims and not sitting and not disabled then
+    runnin = false
+  end
+  if kei == "w" then
+    fldb.w = false
+  end
+  if kei == "a" then
+    fldb.a = false
+  end
+  if kei == "s" then
+    fldb.s = false
+  end
+  if kei == "d" then
+    fldb.d = false
+  end
+end)
+local bawl = Instance.new("Part", torso)
+bawl.formFactor = "Custom"
+bawl.Shape = "Ball"
+bawl.BrickColor = BallColor or torso.BrickColor
+bawl.Material = BallMaterial
+bawl.Transparency = BallTransparency or 0
+bawl.Reflectance = BallReflectance or 0
+bawl.Size = Vector3.new(5.35, 5.35, 5.35)
+bawl.TopSurface = 10
+bawl.BottomSurface = 10
+bawl.LeftSurface = 10
+bawl.RightSurface = 10
+bawl.FrontSurface = 10
+bawl.BackSurface = 10
+bawl.Anchored = false
+bawl:breakJoints("")
+bawl.Locked = true
+bawl.CanCollide = true
+local bawllight = Instance.new("PointLight", bawl)
+bawllight.Brightness = 1
+bawllight.Range = 15
+bawllight.Color = bawl.BrickColor.Color
+bawllight.Shadows = true
+local bawlweld = Instance.new("Weld", bawl)
+bawlweld.Part0 = rutprt
+bawlweld.Part1 = bawl
+bawlweld.C1 = CFrame.new(0, 0, 0)
+rutprt.Weld.C1 = CFrame.new(0, -bawl.Size.y, 0) * CFrame.Angles(math.rad(0), math.rad(0), 0)
+chr.Humanoid.Swimming:connect(function(speedpls)
+  if speedpls >= 5 and not otheranims and not disabled and not sitting then
+    swimming = true
+    anim = "Swimming"
+  elseif speedpls < 5 and not otheranims and not disabled and not sitting then
+    swimming = false
+  end
+end)
+coroutine.resume(coroutine.create(function()
+  while true do
+    if trailing then
+      local Ray = Ray.new(rutprt.CFrame.p, (rutprt.CFrame.p - (rutprt.CFrame * CFrame.new(0, -2, 0)).p).unit * -5)
+      local hitbrick, hitposition = Workspace:FindPartOnRay(Ray, chr)
+      if hitbrick and hitposition then
+        do
+          local splash = Instance.new("Part", bawl)
+          splash.Anchored = true
+          splash.CanCollide = false
+          splash.Transparency = 0
+          splash.formFactor = "Custom"
+          splash.BrickColor = hitbrick.BrickColor
+          splash.Size = Vector3.new(2, 2, 2)
+          game:service("Debris"):AddItem(splash, 2)
+          splash.CFrame = CFrame.new(hitposition) * CFrame.Angles(math.random(1, 3), math.random(1, 3), math.random(1, 3))
+          local splm = Instance.new("BlockMesh", splash)
+          coroutine.wrap(function()
+            for a = 0, 1, 0.05 do
+              splm.Scale = Vector3.new(a, a, a)
+              splash.Transparency = splash.Transparency + 0.05
+              splash.CFrame = splash.CFrame + Vector3.new(0, 0.05, 0)
+              wait("")
+            end
+          end)()
+        end
+      end
+      wait("")
+    else
+      wait("")
+    end
+  end
+end))
+game:service("RunService").RenderStepped:connect(function()
+  syne = syne + 1
+  if not otheranims and not swimming then
+    if 1 > (torso.Velocity * Vector3.new(1, 0, 1)).magnitude and not dnc and not chr.Humanoid.Jump then
+      anim = "Idling"
+    elseif 1 < (rutprt.Velocity * Vector3.new(1, 0, 1)).magnitude and (rutprt.Velocity * Vector3.new(1, 0, 1)).magnitude < RunSpeed - 5 and not chr.Humanoid.Jump then
+      anim = "Walking"
+      dnc = false
+    elseif (torso.Velocity * Vector3.new(1, 0, 1)).magnitude > RunSpeed - 10 and not chr.Humanoid.Jump then
+      anim = "Sprinting"
+      dnc = false
+    elseif 5 < torso.Velocity.y and chr.Humanoid.Jump then
+      anim = "Jumping"
+      dnc = false
+    elseif torso.Velocity.y < -5 and chr.Humanoid.Jump then
+      anim = "Falling"
+      dnc = false
+    end
+  end
+  if anim ~= lastanim then
+    runtime = 0
+  end
+  lastanim = anim
+  if anim == "Idling" then
+    trailing = false
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.5, 0.525 + math.cos(syne / 32.5) / 25, 0) * CFrame.Angles(0, 0, math.rad(3)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.5, 0.525 + math.cos(syne / 32.5) / 25, 0) * CFrame.Angles(0, 0, math.rad(-3)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-0.55, -1.9 - math.cos(syne / 32.5) / 20, math.cos(syne / 32.5) / 35) * CFrame.Angles(-(math.cos(syne / 32.5) / 35), 0, math.rad(-2.5)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(0.55, -1.9 - math.cos(syne / 32.5) / 20, math.cos(syne / 32.5) / 35) * CFrame.Angles(-(math.cos(syne / 32.5) / 35), 0, math.rad(2.5)), 0.1)
+    hed.Weld.C0 = Lerp(hed.Weld.C0, CFrame.new(0, 1.5 + math.cos(syne / 32.5) / 50, 0) * CFrame.Angles(math.cos(syne / 32.5) / 40, 0, 0), 0.1)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, -0.4, -math.cos(syne / 25) * 3) * CFrame.Angles(math.cos(syne / 25) / 4, math.rad(0), math.rad(0)), 0.1)
+    bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, -math.cos(syne / 25) * 3) * CFrame.Angles(math.rad(rollvalue), 0, 0), 0.25)
+  end
+  if anim == "Walking" then
+    trailing = true
+    rollvalue = rollvalue + 3
+    if rollvalue >= 359 then
+      rollvalue = 0
+      bawlweld.C0 = CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 4) / 5))
+    elseif rollvalue >= 177 and rollvalue <= 183 then
+      rollvalue = 184
+      bawlweld.C0 = CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 4) / 5))
+    else
+      bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 4) / 5)), 0.2)
+    end
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.5, 0.525 - math.cos(syne / 8) / 6, math.cos(syne / 8) / 6) * CFrame.Angles(-math.cos(syne / 8) / 3 + math.rad(25), 0, math.rad(12.5)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.5, 0.525 + math.cos(syne / 8) / 6, -math.cos(syne / 8) / 6) * CFrame.Angles(math.cos(syne / 8) / 3 + math.rad(25), 0, math.rad(-12.5)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-(math.cos(syne / 8) / 11) - 0.5, -1.7 + math.sin(syne / 4) / 3.5 - math.cos(syne / 8) / 4, math.rad(-5) - math.cos(syne / 8)) * CFrame.Angles(math.rad(5) + math.cos(syne / 8), 0, -(math.cos(syne / 8) / 11) + math.rad(1)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(-(math.cos(syne / 8) / 11) + 0.5, -1.7 - math.sin(syne / 4) / 3.5 + math.cos(syne / 8) / 4, math.rad(-5) + math.cos(syne / 8)) * CFrame.Angles(math.rad(5) - math.cos(syne / 8), 0, -(math.cos(syne / 8) / 11) + math.rad(-1)), 0.1)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, -0.5 - math.cos(syne / 4) / 2, -math.cos(syne / 4) * 1.5) * CFrame.Angles(math.cos(syne / 4) / 10 + math.rad(-5), math.cos(syne / 4) / 10, math.cos(syne / 8) / 10 + math.sin(rutprt.RotVelocity.y / 2) / 10), 0.1)
+  end
+  if anim == "Sprinting" then
+    trailing = true
+    rollvalue = rollvalue + 5
+    if rollvalue >= 359 then
+      rollvalue = 0
+      bawlweld.C0 = CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 3) / 5))
+    elseif rollvalue >= 177 and rollvalue <= 183 then
+      rollvalue = 184
+      bawlweld.C0 = CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 3) / 5))
+    else
+      bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 3) / 5)), 0.2)
+    end
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.5, 0.525 - math.cos(syne / 6) / 6, math.sin(syne / 6) / 5) * CFrame.Angles(-math.cos(syne / 6) / 3 + math.rad(25), 0, math.rad(12.5)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.5, 0.525 + math.cos(syne / 6) / 6, -math.sin(syne / 6) / 5) * CFrame.Angles(math.cos(syne / 6) / 3 + math.rad(25), 0, math.rad(-12.5)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-(math.cos(syne / 6) / 11) - 0.575, -1.7 + math.cos(syne / 3) / 4 - math.cos(syne / 6) / 4, math.rad(-5) - math.cos(syne / 6)) * CFrame.Angles(math.rad(5) + math.cos(syne / 6), 0, -(math.cos(syne / 6) / 11) + math.rad(-5)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(-(math.cos(syne / 6) / 11) + 0.575, -1.7 - math.cos(syne / 3) / 4 + math.cos(syne / 6) / 4, math.rad(-5) + math.cos(syne / 6)) * CFrame.Angles(math.rad(5) - math.cos(syne / 6), 0, -(math.cos(syne / 6) / 11) + math.rad(5)), 0.1)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, -0.5 - math.cos(syne / 3) / 2, -math.cos(syne / 3) * 1.5) * CFrame.Angles(math.cos(syne / 3) / 10 + math.rad(-5), math.cos(syne / 3) / 10, math.cos(syne / 6) / 10 + math.sin(rutprt.RotVelocity.y / 2) / 10), 0.1)
+  end
+  if anim == "Falling" then
+    trailing = false
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.5, 0.525, 0) * CFrame.Angles(math.rad(25), 0, math.rad(25)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.5, 0.525, 0) * CFrame.Angles(math.rad(25), 0, math.rad(-25)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-0.55, -1.9, math.rad(-20)) * CFrame.Angles(math.rad(20), 0, math.rad(-2.5)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(0.55, -1.9, math.rad(-20)) * CFrame.Angles(math.rad(20), 0, math.rad(2.5)), 0.1)
+    hed.Weld.C0 = Lerp(hed.Weld.C0, CFrame.new(0, 1.5, -0.3) * CFrame.Angles(math.rad(-15), 0, 0), 0.1)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, rutprt.Weld.C0.y + 0.2, 1.75) * CFrame.Angles(math.rad(-15), math.rad(0), math.rad(0)), 0.1)
+    bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, 0) * CFrame.Angles(math.rad(rollvalue), 0, 0), 0.325)
+  end
+  if anim == "Jumping" then
+    trailing = false
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.5, 0.525, 0) * CFrame.Angles(math.rad(-25), 0, math.rad(25)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.5, 0.525, 0) * CFrame.Angles(math.rad(-25), 0, math.rad(-25)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-0.55, -1.9, math.rad(5)) * CFrame.Angles(math.rad(-5), 0, math.rad(-2.5)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(0.55, -1.9, math.rad(5)) * CFrame.Angles(math.rad(-5), 0, math.rad(2.5)), 0.1)
+    hed.Weld.C0 = Lerp(hed.Weld.C0, CFrame.new(0, 1.5, 0.05) * CFrame.Angles(math.rad(15), 0, 0), 0.1)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, rutprt.Weld.C0.y + 0.1, 0) * CFrame.Angles(math.rad(5), math.rad(0), math.rad(0)), 0.1)
+    bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, 0) * CFrame.Angles(math.rad(rollvalue), 0, 0), 0.325)
+  end
+  if anim == "WallRun" then
+    chr.Humanoid.Jump = true
+    trailing = false
+    rollvalue = rollvalue + 7
+    if rollvalue >= 359 then
+      rollvalue = 0
+      bawlweld.C0 = CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 3) / 5))
+    elseif rollvalue >= 177 and rollvalue <= 183 then
+      rollvalue = 184
+      bawlweld.C0 = CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 3) / 5))
+    else
+      bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, -(math.cos(syne / 3) / 5)), 0.2)
+    end
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.325, 0.525, 0.2) * CFrame.Angles(math.rad(-45), 0, math.rad(3)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.325, 0.525, 0.2) * CFrame.Angles(math.rad(-45), 0, math.rad(-3)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-(math.cos(syne / 5) / 11) - 0.575, -1.8 - math.cos(syne / 2.5) / 2 + math.cos(syne / 5) / 6, math.rad(-30) - math.cos(syne / 5)) * CFrame.Angles(math.rad(30) + math.cos(syne / 5), 0, -(math.cos(syne / 5) / 11) + math.rad(-5)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(-(math.cos(syne / 5) / 11) + 0.575, -1.8 + math.cos(syne / 2.5) / 2 - math.cos(syne / 5) / 6, math.rad(-30) + math.cos(syne / 5)) * CFrame.Angles(math.rad(30) - math.cos(syne / 5), 0, -(math.cos(syne / 5) / 11) + math.rad(5)), 0.1)
+    hed.Weld.C0 = Lerp(hed.Weld.C0, CFrame.new(0, 1.45, 0.25) * CFrame.Angles(math.rad(30), 0, 0), 0.1)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, -1 - math.cos(syne / 2.5) / 2, 2 - math.cos(syne / 3) * 1.5) * CFrame.Angles(math.cos(syne / 2.5) / 10 + math.rad(-3), math.cos(syne / 2.5) / 10, math.cos(syne / 5) / 10 + math.sin(rutprt.RotVelocity.y / 2) / 10), 0.1)
+  end
+  if anim == "Swimming" then
+    rollvalue = rollvalue + 4
+    if rollvalue >= 360 then
+      rollvalue = 0
+    end
+    if not armmovement then
+      rarm.Weld.C0 = Lerp(rarm.Weld.C0, CFrame.new(1.5, 0.525 - math.cos(syne / 8) / 6, math.cos(syne / 8) / 6) * CFrame.Angles(-math.cos(syne / 8) / 3 + math.rad(25), 0, math.rad(12.5)), 0.1)
+      larm.Weld.C0 = Lerp(larm.Weld.C0, CFrame.new(-1.5, 0.525 + math.cos(syne / 8) / 6, -math.cos(syne / 8) / 6) * CFrame.Angles(math.cos(syne / 8) / 3 + math.rad(25), 0, math.rad(-12.5)), 0.1)
+    end
+    lleg.Weld.C0 = Lerp(lleg.Weld.C0, CFrame.new(-0.55, -1.7 + math.cos(syne / 4) / 4, math.rad(-5) - math.cos(syne / 8)) * CFrame.Angles(math.rad(5) + math.cos(syne / 8), 0, math.rad(-5)), 0.1)
+    rleg.Weld.C0 = Lerp(rleg.Weld.C0, CFrame.new(0.55, -1.7 - math.cos(syne / 4) / 4, math.rad(-5) + math.cos(syne / 8)) * CFrame.Angles(math.rad(5) - math.cos(syne / 8), 0, math.rad(5)), 0.1)
+    bawlweld.C0 = Lerp(bawlweld.C0, CFrame.new(0, -0.5, 0) * CFrame.Angles(-math.rad(rollvalue), 0, 0), 0.25)
+    rutprt.Weld.C0 = Lerp(rutprt.Weld.C0, CFrame.new(0, -0.4 - math.cos(syne / 4) / 4, -math.cos(syne / 4) * 1.25) * CFrame.Angles(math.cos(syne / 4) / 10 + math.rad(95), math.cos(syne / 4) / 10, math.cos(syne / 8) / 10 + math.sin(rutprt.RotVelocity.y / 2) / 10), 0.1)
+  end
+  chr.Humanoid.CameraOffset = rutprt.CFrame:toObjectSpace(hed.CFrame).p + Vector3.new(0, -1.25, 0)
+  if runnin and not disabled and not otheranims and not sitting then
+    chr.Humanoid.WalkSpeed = RunSpeed
+  elseif not runnin and not disabled and not otheranims and not sitting then
+    chr.Humanoid.WalkSpeed = WlkSpeed
+  end
+  if rutprt:findFirstChild("WallRunningVelocitypls") and otheranims then
+    local rei = Ray.new(rutprt.CFrame.p, (rutprt.CFrame * CFrame.new(0, 0, -1)).p - rutprt.CFrame.p.unit * (bawl.Size.y / 2))
+    local hitpart, hitpos = Workspace:FindPartOnRay(rei, chr)
+    if not hitpart then
+      otheranims = false
+      rutprt:findFirstChild("WallRunningVelocitypls"):Destroy("")
+    else
+      return
+    end
+  end
+  if runnin and (fldb.w or fldb.a or fldb.s or fldb.d) then
+    local rei = Ray.new(rutprt.CFrame.p, (rutprt.CFrame * CFrame.new(0, 0, -1)).p - rutprt.CFrame.p.unit * (bawl.Size.y / 2))
+    local hitpart, hitpos = Workspace:FindPartOnRay(rei, chr)
+    if hitpart and hitpart.CanCollide then
+      otheranims = true
+      anim = "WallRun"
+      if not rutprt:findFirstChild("WallRunningVelocitypls") then
+        local wlvelo = Instance.new("BodyVelocity", rutprt)
+        wlvelo.Name = "WallRunningVelocitypls"
+        wlvelo.maxForce = Vector3.new(0, math.huge, 0)
+        wlvelo.velocity = Vector3.new(0, RunSpeed * 1.2, 0)
+      end
+    end
+  elseif rutprt:findFirstChild("WallRunningVelocitypls") and otheranims then
+    otheranims = false
+    rutprt:findFirstChild("WallRunningVelocitypls"):destroy("")
+  end
+end)
