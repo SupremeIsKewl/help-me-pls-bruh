@@ -9,8 +9,8 @@ Effects = { }
 FELOADLIBRARY = {}
 
 game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "Melon's (FE) Scripts";
-	Text = "Loading, enjoy!";
+	Title = "Skidz's FE Hub";
+	Text = "executed :flushed:";
 	Icon = "rbxthumb://type=Asset&id=7969699183&w=150&h=150"})
 Duration = 16;
 wait(0.1)
